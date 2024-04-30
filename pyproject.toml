@@ -9,10 +9,10 @@ readme = "README.md"
 python = "^3.11"
 jupyter = "1.0.0"
 ucimlrepo = "0.0.6"
-pandas = "2.2.1"
-matplotlib = "3.8.3"
+pandas = "2.2.2"
+matplotlib = "3.8.4"
 seaborn = "0.13.2"
-scikit-learn = "1.4.1.post1"
+scikit-learn = "1.4.2"
 
 
 [tool.poetry.group.dev.dependencies]
