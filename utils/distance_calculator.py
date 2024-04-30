@@ -9,6 +9,7 @@ import pandas as pd
 class DistanceCalculator:
     @staticmethod
     def calculate_euclidean_distance(x1: np.ndarray, x2: np.ndarray) -> float:
+
         return np.sqrt(np.sum((x1 - x2) ** 2))
 
     @staticmethod
@@ -17,6 +18,7 @@ class DistanceCalculator:
         test_sample: pd.Series,
         distance_calculator_function: Callable[[np.ndarray, np.ndarray], float],
     ) -> list[tuple[Hashable, float]]:
+
         distances = []
         for index, train_sample in X_train.iterrows():
             distance = distance_calculator_function(
@@ -24,4 +26,5 @@ class DistanceCalculator:
                 test_sample.values,
             )
             distances.append((index, distance))
+
         return distances

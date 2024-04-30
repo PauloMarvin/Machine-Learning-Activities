@@ -21,6 +21,7 @@ class ImageGenerator:
         y_label: str,
         image_title: str,
     ) -> plt:
+
         sns.set_theme(style="whitegrid")
         plt.figure(figsize=self.figure_size)
         sns.boxplot(
@@ -30,6 +31,7 @@ class ImageGenerator:
             linewidth=2,
             fliersize=5,
         )
+
         plt.title(label=image_title, fontsize=self.font_size)
         plt.ylabel(ylabel=y_label, fontsize=self.font_size)
         plt.ylim(min(vector_distribution) - 0.1, 1)
@@ -45,6 +47,7 @@ class ImageGenerator:
         y_label: str,
         image_title: str,
     ) -> plt:
+
         plt.figure(figsize=self.figure_size)
         sns.heatmap(
             confusion_matrix,
@@ -53,6 +56,7 @@ class ImageGenerator:
             cmap="Blues",
             cbar=False,
         )
+
         plt.xlabel(xlabel=x_label, fontsize=self.font_size)
         plt.ylabel(ylabel=y_label, fontsize=self.font_size)
         plt.title(label=image_title, fontsize=self.font_size)
@@ -71,6 +75,7 @@ class ImageGenerator:
         feature_y: str,
         resolution_points: int,
     ) -> plt:
+
         xx, yy = DatasetUtils.create_meshgrid(
             X_train,
             feature_x,
@@ -78,10 +83,12 @@ class ImageGenerator:
             resolution_points=resolution_points,
         )
 
-        feature_x_max, feature_x_min, feature_y_max, feature_y_min = DatasetUtils.calculate_feature_bounds(
-            X_train,
-            feature_x,
-            feature_y,
+        feature_x_max, feature_x_min, feature_y_max, feature_y_min = (
+            DatasetUtils.calculate_feature_bounds(
+                X_train,
+                feature_x,
+                feature_y,
+            )
         )
 
         cmap_light = ListedColormap(["#FFAAAA", "#AAFFAA", "#AAAAFF"])
