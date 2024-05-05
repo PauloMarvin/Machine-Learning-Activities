@@ -28,6 +28,12 @@ repos:
     hooks:
       - id: black-jupyter
 
+  - repo: https://github.com/pycqa/isort
+    rev: 5.13.2
+    hooks:
+      - id: isort
+        args: ["--profile", "black"]
+
   - repo: https://github.com/PyCQA/autoflake
     rev: v2.3.1
     hooks:
