@@ -1,5 +1,3 @@
-from __future__ import annotations
-
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
@@ -15,13 +13,14 @@ class ImageGenerator:
         self.figure_size = figure_size
         self.font_size = font_size
 
-    def plot_boxplot(
+    def create_boxplot(
         self,
         vector_distribution: pd.Series | list[float],
         y_label: str,
         image_title: str,
-    ) -> plt:
-
+        path_to_save: str,
+        show: bool = True,
+    ) -> None:
         sns.set_theme(style="whitegrid")
         plt.figure(figsize=self.figure_size)
         sns.boxplot(
@@ -36,18 +35,23 @@ class ImageGenerator:
         plt.ylabel(ylabel=y_label, fontsize=self.font_size)
         plt.ylim(min(vector_distribution) - 0.1, 1)
         plt.yticks(fontsize=self.font_size)
-        plt.show()
 
-        return plt
+        plt.savefig(path_to_save, format="jpeg")
 
-    def plot_confusion_matrix_heatmap(
+        if show:
+            plt.show()
+
+        plt.close()
+
+    def create_confusion_matrix_heatmap(
         self,
         confusion_matrix: np.ndarray,
         x_label: str,
         y_label: str,
         image_title: str,
-    ) -> plt:
-
+        path_to_save: str,
+        show: bool = True,
+    ) -> None:
         plt.figure(figsize=self.figure_size)
         sns.heatmap(
             confusion_matrix,
@@ -55,6 +59,7 @@ class ImageGenerator:
             fmt="d",
             cmap="Blues",
             cbar=False,
+            annot_kws={"size": self.font_size},
         )
 
         plt.xlabel(xlabel=x_label, fontsize=self.font_size)
@@ -63,9 +68,14 @@ class ImageGenerator:
         plt.xticks(fontsize=self.font_size)
         plt.yticks(fontsize=self.font_size)
 
-        return plt
+        plt.savefig(path_to_save, format="jpeg")
 
-    def plot_decision_surface(
+        if show:
+            plt.show()
+
+        plt.close()
+
+    def create_decision_surface(
         self,
         X_train: pd.DataFrame,
         y_train: pd.Series | np.ndarray,
@@ -74,8 +84,9 @@ class ImageGenerator:
         feature_x: str,
         feature_y: str,
         resolution_points: int,
-    ) -> plt:
-
+        path_to_save: str,
+        show: bool = True,
+    ) -> None:
         xx, yy = DatasetUtils.create_meshgrid(
             X_train,
             feature_x,
@@ -114,4 +125,9 @@ class ImageGenerator:
         plt.xticks(fontsize=self.font_size)
         plt.yticks(fontsize=self.font_size)
 
-        return plt
+        plt.savefig(path_to_save, format="jpeg")
+
+        if show:
+            plt.show()
+
+        plt.close()
