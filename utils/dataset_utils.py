@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+from pandas import DataFrame
 
 
 class DatasetUtils:
@@ -48,7 +49,7 @@ class DatasetUtils:
         feature_y: str,
         resolution_points: int,
         return_shapes: bool,
-    ) -> pd.DataFrame:
+    ) -> tuple[DataFrame, tuple[int, ...], tuple[int, ...]] | DataFrame:
 
         xx, yy = DatasetUtils.create_meshgrid(
             X_train,
