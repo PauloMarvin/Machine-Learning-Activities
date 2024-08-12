@@ -29,7 +29,7 @@ class BayesianGaussianClassifier:
             self.class_covs[class_name] = cov
 
     def multivariate_normal_pdf(
-            self, X: np.ndarray, mean: np.ndarray, cov: np.ndarray
+        self, X: np.ndarray, mean: np.ndarray, cov: np.ndarray
     ) -> np.ndarray:
         k = len(mean)
         det = np.linalg.det(cov)
@@ -47,7 +47,7 @@ class BayesianGaussianClassifier:
         return np.argmax(probabilities, axis=1)
 
     def _regularize_covariance_matrix(
-            self, covariance_matrix: np.ndarray, lambda_: float = 1e-3
+        self, covariance_matrix: np.ndarray, lambda_: float = 1e-3
     ) -> np.ndarray:
         regularized_covariance_matrix = covariance_matrix + lambda_ * np.identity(
             covariance_matrix.shape[0]

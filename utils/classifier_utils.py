@@ -5,12 +5,10 @@ import pandas as pd
 class ClassifierUtils:
     @staticmethod
     def calculate_accuracy(y_true: np.ndarray, y_pred: np.ndarray) -> float:
-
         return np.sum(y_true == y_pred) / len(y_true)
 
     @staticmethod
     def calculate_error_rate(y_true: np.ndarray, y_pred: np.ndarray) -> float:
-
         return 1 - ClassifierUtils.calculate_accuracy(y_true, y_pred)
 
     @staticmethod
@@ -30,7 +28,6 @@ class ClassifierUtils:
         df: pd.DataFrame,
         test_size: float,
     ) -> tuple[list[int], list[int]]:
-
         df_len = len(df)
         test_size = int(df_len * test_size)
         train_size = df_len - test_size
@@ -47,7 +44,6 @@ class ClassifierUtils:
         n_indexes: int,
         test_size: float,
     ) -> list[tuple[list[int], list[int]]]:
-
         indexes_list = []
         for _ in range(n_indexes):
             indexes_list.append(
@@ -63,7 +59,6 @@ class ClassifierUtils:
         test_indexes: list[int],
         target_column_name: str,
     ) -> tuple[pd.DataFrame, pd.Series, pd.DataFrame, pd.Series]:
-
         train_df = df.loc[train_indexes]
         test_df = df.loc[test_indexes]
 

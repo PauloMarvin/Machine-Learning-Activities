@@ -14,6 +14,8 @@ matplotlib = "3.8.4"
 seaborn = "0.13.2"
 scikit-learn = "1.4.2"
 msvc-runtime = "^14.40.33807"
+category-encoders = "^2.6.3"
+imbalanced-learn = "^0.12.3"
 
 
 [tool.poetry.group.dev.dependencies]

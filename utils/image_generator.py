@@ -2,6 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import seaborn as sns
+import colorsys
 from matplotlib.colors import ListedColormap
 
 from utils.dataset_utils import DatasetUtils
@@ -14,12 +15,12 @@ class ImageGenerator:
         self.font_size = font_size
 
     def create_boxplot(
-        self,
-        vector_distribution: pd.Series | list[float],
-        y_label: str,
-        image_title: str,
-        path_to_save: str,
-        show: bool = True,
+            self,
+            vector_distribution: pd.Series | list[float],
+            y_label: str,
+            image_title: str,
+            path_to_save: str,
+            show: bool = True,
     ) -> None:
         sns.set_theme(style="whitegrid")
         plt.figure(figsize=self.figure_size)
@@ -44,13 +45,13 @@ class ImageGenerator:
         plt.close()
 
     def create_confusion_matrix_heatmap(
-        self,
-        confusion_matrix: np.ndarray,
-        x_label: str,
-        y_label: str,
-        image_title: str,
-        path_to_save: str,
-        show: bool = True,
+            self,
+            confusion_matrix: np.ndarray,
+            x_label: str,
+            y_label: str,
+            image_title: str,
+            path_to_save: str,
+            show: bool = True,
     ) -> None:
         plt.figure(figsize=self.figure_size)
         sns.heatmap(
@@ -76,16 +77,17 @@ class ImageGenerator:
         plt.close()
 
     def create_decision_surface(
-        self,
-        X_train: pd.DataFrame,
-        y_train: pd.Series | np.ndarray,
-        y_pred: np.ndarray,
-        image_title: str,
-        feature_x: str,
-        feature_y: str,
-        resolution_points: int,
-        path_to_save: str,
-        show: bool = True,
+            self,
+            X_train: pd.DataFrame,
+            y_train: pd.Series | np.ndarray,
+            y_pred: np.ndarray,
+            image_title: str,
+            feature_x: str,
+            feature_y: str,
+            resolution_points: int,
+            path_to_save: str,
+            num_classes: int,
+            show: bool = True,
     ) -> None:
         xx, yy = DatasetUtils.create_meshgrid(
             X_train,
@@ -102,7 +104,7 @@ class ImageGenerator:
             )
         )
 
-        cmap_light = ListedColormap(["#FFAAAA", "#AAFFAA", "#AAAAFF"])
+        cmap_light = ListedColormap(self.generate_distinct_pastel_colors(num_classes))
         plt.figure(figsize=self.figure_size)
         plt.pcolormesh(xx, yy, y_pred, cmap=cmap_light)
         sc = plt.scatter(
@@ -131,3 +133,13 @@ class ImageGenerator:
             plt.show()
 
         plt.close()
+
+    @staticmethod
+    def generate_distinct_pastel_colors(number_of_colors: int) -> list[str]:
+        colors = []
+        for i in range(number_of_colors):
+            hue = i / number_of_colors
+            r, g, b = colorsys.hls_to_rgb(hue, 0.8, 0.5)  # Mais luminosidade e menos saturação
+            colors.append('#{:02X}{:02X}{:02X}'.format(int(r * 255), int(g * 255), int(b * 255)))
+        return colors
+

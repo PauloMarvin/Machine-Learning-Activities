@@ -9,13 +9,13 @@ class DatasetUtils:
         dataset: pd.DataFrame,
         feature_x: str,
         feature_y: str,
+        margin_percentage: float = 0.2,
     ) -> tuple[float, float, float, float]:
+        feature_x_max = dataset[feature_x].max() * (1 + margin_percentage)
+        feature_x_min = dataset[feature_x].min() * (1 - margin_percentage)
 
-        feature_x_max = dataset[feature_x].max()
-        feature_x_min = dataset[feature_x].min()
-
-        feature_y_max = dataset[feature_y].max()
-        feature_y_min = dataset[feature_y].min()
+        feature_y_max = dataset[feature_y].max() * (1 + margin_percentage)
+        feature_y_min = dataset[feature_y].min() * (1 - margin_percentage)
 
         return feature_x_max, feature_x_min, feature_y_max, feature_y_min
 
@@ -26,7 +26,6 @@ class DatasetUtils:
         feature_y: str,
         resolution_points: int,
     ) -> tuple[np.ndarray, np.ndarray]:
-
         feature_x_max, feature_x_min, feature_y_max, feature_y_min = (
             DatasetUtils.calculate_feature_bounds(
                 X_train,
@@ -50,7 +49,6 @@ class DatasetUtils:
         resolution_points: int,
         return_shapes: bool,
     ) -> tuple[DataFrame, tuple[int, ...], tuple[int, ...]] | DataFrame:
-
         xx, yy = DatasetUtils.create_meshgrid(
             X_train,
             feature_x,

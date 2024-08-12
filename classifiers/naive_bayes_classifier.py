@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 
+
 class NaiveBayesClassifier:
     def __init__(self) -> None:
         self.class_names = None
@@ -22,10 +23,12 @@ class NaiveBayesClassifier:
             self.class_vars[class_name] = np.var(X_train_class, axis=0)
             self.class_priors[class_name] = X_train_class.shape[0] / X_train.shape[0]
 
-    def gaussian_pdf(self, x: np.ndarray, mean: np.ndarray, var: np.ndarray) -> np.ndarray:
+    def gaussian_pdf(
+        self, x: np.ndarray, mean: np.ndarray, var: np.ndarray
+    ) -> np.ndarray:
         var += self.epsilon
         coefficient = 1 / np.sqrt(2 * np.pi * var)
-        exponent = np.exp(- (x - mean) ** 2 / (2 * var))
+        exponent = np.exp(-((x - mean) ** 2) / (2 * var))
         return coefficient * exponent
 
     def predict(self, X_test: pd.DataFrame) -> np.ndarray:
